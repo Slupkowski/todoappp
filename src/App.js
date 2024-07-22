@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { useState } from "react";
 function App() {
+  const [message, setMessage] = useState("");
+  function addMessage() {
+    alert(message);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+      <label>
+        Wprowadź se zadanie:
+        <input
+          name="task"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+      </label>
+      <button onClick={addMessage}>cwelicho</button>
+      {message !== "" && (
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {message} <button>X</button>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      )}
+    </>
   );
 }
 
