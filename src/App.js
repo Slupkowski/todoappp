@@ -3,7 +3,12 @@ import { useState } from "react";
 function App() {
   const [message, setMessage] = useState("");
   function addMessage() {
-    alert(message);
+    const node = document.createElement("li");
+    const textnode = document.createTextNode(message + <button>x</button>);
+    const elbutton = document.createElement("button");
+    node.appendChild(textnode, elbutton);
+    document.getElementById("list").appendChild(node);
+    console.log(node);
   }
   return (
     <>
@@ -16,6 +21,7 @@ function App() {
         />
       </label>
       <button onClick={addMessage}>cwelicho</button>
+      <ul id="list"></ul>
       {message !== "" && (
         <p>
           {message} <button>X</button>
