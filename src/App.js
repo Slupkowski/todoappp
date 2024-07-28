@@ -1,17 +1,23 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+
 function App() {
   const [message, setMessage] = useState("");
-  function addMessage() {
-    const node = document.createElement("li");
-    const textnode = document.createTextNode(message + <button>x</button>);
-    const elbutton = document.createElement("button");
-    node.appendChild(textnode, elbutton);
-    document.getElementById("list").appendChild(node);
-    console.log(node);
-  }
+  const [tasks, setTasks] = useState([]);
+
+  const addMessage = () => {
+    if (message.trim() !== "") {
+      setTasks([...tasks, message]);
+      setMessage("");
+    }
+  };
+
+  const removeTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
   return (
-    <>
+    <div>
       <label>
         Wprowadź se zadanie:
         <input
@@ -20,14 +26,16 @@ function App() {
           onChange={(e) => setMessage(e.target.value)}
         />
       </label>
-      <button onClick={addMessage}>cwelicho</button>
-      <ul id="list"></ul>
-      {message !== "" && (
-        <p>
-          {message} <button>X</button>
-        </p>
-      )}
-    </>
+      <button onClick={addMessage}>Dodaj zadanie</button>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            {task}
+            <button onClick={() => removeTask(index)}>x</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
